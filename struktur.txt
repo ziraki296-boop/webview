@@ -1,0 +1,8 @@
+webview_app/
+│
+├── main.py
+├── buildozer.spec
+├── requirements.txt
+├── .gitignore
+└── assets/
+    └── index.html

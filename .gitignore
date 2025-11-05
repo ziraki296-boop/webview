@@ -1,0 +1,30 @@
+[app]
+title = TransformApp
+package.name = transformapp
+package.domain = org.zilly
+source.dir = .
+source.include_exts = py, png, jpg, kv, json, txt
+version = 1.0
+orientation = portrait
+
+# Main entry point
+entrypoint = main.py
+
+# Permissions
+android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
+
+# Output APK name
+android.archive_path = bin/
+
+[buildozer]
+log_level = 2
+warn_on_root = 1
+
+# Dependencies
+requirements = python3,kivy,openpyxl
+
+# Optional: Skip android studio heavy stuff
+android.accept_sdk_license = True
+android.ndk_api = 21
+android.api = 33
+android.minapi = 21

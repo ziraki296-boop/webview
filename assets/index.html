@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transform Number</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 30px; }
+    input { padding: 10px; width: 200px; }
+    button { padding: 10px 15px; margin-left: 10px; }
+    h3 { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h2>Transformasi Angka</h2>
+  <input id="numInput" type="text" placeholder="Masukkan angka...">
+  <button onclick="transform()">Ubah</button>
+  <h3 id="output"></h3>
+
+  <script>
+    function transformNumber(num) {
+      if (num.length < 3) return "Minimal 3 digit";
+
+      let left = num.slice(0, -3);
+      let ratusan = parseInt(num[num.length - 3]);
+      let puluhan = parseInt(num[num.length - 2]);
+      let satuan = parseInt(num[num.length - 1]);
+
+      let puluhan_new = puluhan - 1;
+      let borrow = 0;
+      if (puluhan_new < 0) {
+        puluhan_new = 9;
+        borrow = 1;
+      }
+
+      let ratusan_new = ratusan - borrow;
+      if (ratusan_new < 0) ratusan_new = 9;
+
+      let satuan_new = (puluhan === 5) ? (satuan + 3) % 10 : (satuan + 2) % 10;
+
+      return left + ratusan_new + puluhan_new + satuan_new;
+    }
+
+    function transform() {
+      const val = document.getElementById('numInput').value.trim();
+      const result = transformNumber(val);
+      document.getElementById('output').innerText = "Hasil: " + result;
+    }
+  </script>
+</body>
+</html>
