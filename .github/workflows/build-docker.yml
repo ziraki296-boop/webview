@@ -1,4 +1,4 @@
-name: Build Kivy Android APK (Docker)
+name: Build Kivy Android APK (Docker Non-Interactive)
 
 on:
   workflow_dispatch:
@@ -11,13 +11,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build APK using Buildozer Docker
+      - name: Build APK using Buildozer Docker (auto yes)
         run: |
           docker run --rm -v ${{ github.workspace }}:/app -w /app kivy/buildozer bash -c "
-            apt-get update &&
-            apt-get install -y git && 
-            git --version &&
-            buildozer android debug
+            apt-get update -y &&
+            apt-get install -y git &&
+            yes | buildozer android debug
           "
 
       - name: Upload APK artifact
