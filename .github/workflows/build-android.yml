@@ -38,7 +38,6 @@ jobs:
             "platforms;android-33" \
             "build-tools;33.0.2" \
             "emulator" \
-            "patcher;v4" \
             "tools" \
             "ndk;25.1.8937393"
 
