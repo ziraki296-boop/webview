@@ -37,9 +37,11 @@ jobs:
             "platform-tools" \
             "platforms;android-33" \
             "build-tools;33.0.2" \
-            "emulator" \
-            "tools" \
             "ndk;25.1.8937393"
+
+          # ✅ Tambahan untuk AIDL agar dikenali Buildozer
+          export PATH=$ANDROID_HOME/build-tools/33.0.2:$PATH
+          ls $ANDROID_HOME/build-tools/33.0.2
 
           pip install --upgrade pip
           pip install buildozer cython==0.29.36 virtualenv openpyxl
