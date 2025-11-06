@@ -1,4 +1,4 @@
-name: Build Kivy Android APK (Docker CI)
+name: Build Kivy Android APK (with Docker Cache)
 
 on:
   workflow_dispatch:  # bisa dijalankan manual dari tab Actions
@@ -12,17 +12,31 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # 2️⃣ Build APK menggunakan image Buildozer resmi
+    # 2️⃣ Restore cache untuk .buildozer (SDK, NDK, venv)
+    - name: Restore Buildozer cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          .buildozer
+          ~/.buildozer
+        key: buildozer-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
+        restore-keys: |
+          buildozer-${{ runner.os }}-
+
+    # 3️⃣ Build APK menggunakan Buildozer Docker
     - name: Build APK using Buildozer Docker
       run: |
-        docker run --rm -v ${{ github.workspace }}:/app -w /app \
+        docker run --rm \
+          -v ${{ github.workspace }}:/app \
+          -w /app \
+          -e BUILDOZER_ALLOW_ROOT=1 \
           kivy/buildozer bash -c "
           apt-get update -y &&
-          apt-get install -y git && \
-          yes | buildozer -v android debug --ignore-root
+          apt-get install -y git &&
+          buildozer -v android debug
         "
 
-    # 3️⃣ Upload hasil build (APK) ke artifacts
+    # 4️⃣ Upload hasil APK ke GitHub Artifacts
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
