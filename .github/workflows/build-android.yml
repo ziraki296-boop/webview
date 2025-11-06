@@ -16,14 +16,16 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install dependencies
+      - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-pip zip unzip curl git openjdk-17-jdk
+          sudo apt-get install -y git curl zip unzip openjdk-17-jdk python3-pip
+          git --version
+          java -version
           pip install --upgrade pip
           pip install buildozer Cython==0.29.36 virtualenv openpyxl
 
-      - name: Install Android SDK and Build Tools
+      - name: Install Android SDK & Build Tools
         run: |
           mkdir -p $HOME/android-sdk/cmdline-tools
           cd $HOME/android-sdk/cmdline-tools
@@ -35,15 +37,17 @@ jobs:
           yes | sdkmanager --licenses
           yes | sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.2" "ndk;25.1.8937393"
 
-      - name: Ensure AIDL is installed
+      - name: Verify AIDL and Git
         run: |
           export ANDROID_HOME=$HOME/android-sdk
           export PATH=$ANDROID_HOME/build-tools/33.0.2:$PATH
-          if [ ! -f "$ANDROID_HOME/build-tools/33.0.2/aidl" ]; then
-            echo "Installing missing AIDL..."
-            yes | sdkmanager "build-tools;33.0.2"
-          fi
+          echo "Checking AIDL:"
           which aidl || echo "⚠️ AIDL not found!"
+          echo "Checking Git:"
+          which git || echo "❌ Git not found (will install manually)"
+          if ! command -v git &> /dev/null; then
+            sudo apt-get install -y git
+          fi
 
       - name: Build APK with Buildozer
         env:
@@ -53,6 +57,7 @@ jobs:
           ANDROIDMINAPI: 27
           PATH: $HOME/android-sdk/build-tools/33.0.2:$PATH
         run: |
+          git --version
           buildozer android debug
 
       - name: Upload APK artifact
