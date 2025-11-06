@@ -8,47 +8,55 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Pastikan git tersedia lebih dulu
+      - name: Ensure Git is installed
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+          git --version
+
+      # 2️⃣ Clone / checkout project
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 3️⃣ Setup Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
+      # 4️⃣ Install dependencies dasar
       - name: Install system dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y git curl zip unzip openjdk-17-jdk python3-pip
-          git --version
+          sudo apt-get install -y curl zip unzip openjdk-17-jdk python3-pip
           java -version
           pip install --upgrade pip
           pip install buildozer Cython==0.29.36 virtualenv openpyxl
 
-      - name: Install Android SDK & Build Tools
+      # 5️⃣ Install Android SDK & Build Tools
+      - name: Install Android SDK
         run: |
           mkdir -p $HOME/android-sdk/cmdline-tools
           cd $HOME/android-sdk/cmdline-tools
-          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
-          unzip -q cmdline-tools.zip
+          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O tools.zip
+          unzip -q tools.zip
           mv cmdline-tools latest
           export ANDROID_HOME=$HOME/android-sdk
           export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
           yes | sdkmanager --licenses
           yes | sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.2" "ndk;25.1.8937393"
 
-      - name: Verify AIDL and Git
+      # 6️⃣ Pastikan AIDL & Git aktif
+      - name: Verify tools
         run: |
           export ANDROID_HOME=$HOME/android-sdk
           export PATH=$ANDROID_HOME/build-tools/33.0.2:$PATH
           echo "Checking AIDL:"
           which aidl || echo "⚠️ AIDL not found!"
           echo "Checking Git:"
-          which git || echo "❌ Git not found (will install manually)"
-          if ! command -v git &> /dev/null; then
-            sudo apt-get install -y git
-          fi
+          which git || echo "❌ Git not found!"
 
+      # 7️⃣ Jalankan build APK
       - name: Build APK with Buildozer
         env:
           ANDROIDSDK: $HOME/android-sdk
@@ -57,10 +65,10 @@ jobs:
           ANDROIDMINAPI: 27
           PATH: $HOME/android-sdk/build-tools/33.0.2:$PATH
         run: |
-          git --version
           buildozer android debug
 
-      - name: Upload APK artifact
+      # 8️⃣ Upload hasil APK ke artifacts
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: TransformApp-APK
