@@ -1,0 +1,235 @@
+    1  source /home/zilly/Desktop/project/kivy/venv/bin/activate
+    2  # Verify Python version (should show 3.10.13)
+    3  python --version
+    4  # Make sure we're in the venv and buildozer is installed
+    5  which python
+    6  pip list | grep buildozer
+    7  # Start the build with verbose output
+    8  buildozer -v android debug 2>&1 | tee buildozer_build.log
+    9  # Make sure we're in the project directory
+   10  cd /home/zilly/Desktop/project/kivy
+   11  # Activate the virtual environment
+   12  source .venv-p4a/bin/activate
+   13  # You should see (.venv-p4a) at the start of your prompt
+   14  # Install buildozer and its requirements
+   15  pip install --upgrade pip setuptools wheel
+   16  pip install buildozer==1.5.0 cython==0.29.33
+   17  # Verify buildozer is installed
+   18  which buildozer
+   19  buildozer --version
+   20  # Deactivate virtual environment first
+   21  deactivate
+   22  # Install buildozer system-wide
+   23  sudo pip install buildozer
+   24  # Check if buildozer is now available
+   25  which buildozer
+   26  buildozer --version
+   27  # Create new directory
+   28  mkdir ~/Desktop/kivy_android
+   29  cd ~/Desktop/kivy_android
+   30  # Copy your project files
+   31  cp -r ~/Desktop/project/kivy/* .
+   32  # Create new Python 3.10 virtual environment
+   33  python3.10 -m venv .venv-android
+   34  source .venv-android/bin/activate
+   35  # Install build requirements
+   36  pip install --upgrade pip setuptools wheel
+   37  pip install buildozer==1.5.0 cython==0.29.33
+   38  # Verify installations
+   39  python --version  # Should show Python 3.10.13
+   40  which buildozer   # Should show path in .venv-android/bin
+   41  buildozer --version
+   42  # Start the build
+   43  buildozer -v android debug 2>&1 | tee buildozer_build.log
+   44  # Create new directory
+   45  mkdir ~/Desktop/kivy_android
+   46  cd ~/Desktop/kivy_android
+   47  # Copy your project files
+   48  cp -r ~/Desktop/project/kivy/* .
+   49  # Create new Python 3.10 virtual environment
+   50  python3.10 -m venv .venv-android
+   51  source .venv-android/bin/activate
+   52  # Install build requirements
+   53  pip install --upgrade pip setuptools wheel
+   54  pip install buildozer==1.5.0 cython==0.29.33
+   55  # Verify installations
+   56  python --version  # Should show Python 3.10.13
+   57  source /home/zilly/Desktop/kivy_android/venv/bin/activate
+   58  /home/zilly/Desktop/kivy_android/venv/bin/python main.py
+   59  source /home/zilly/Desktop/kivy_android/venv/bin/activate
+   60  python main.py
+   61  /home/zilly/Desktop/kivy_android/venv/bin/python main.py
+   62  source /home/zilly/Desktop/kivy_android/venv/bin/activate
+   63  source /home/zilly/Desktop/kivy_android/venv/bin/activate
+   64  source /home/zilly/Desktop/kivy_android/venv/bin/activate
+   65  source /home/zilly/Desktop/kivy_android/venv/bin/activate
+   66  sudo apt-get install -y python3-pip build-essential git python3 python3-dev ffmpeg libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev
+   67  studo.sh
+   68  amdroi
+   69  studio
+   70  android
+   71  android-studio
+   72  echo 'alias android-studio="/opt/android-studio/bin/studio.sh"' >> ~/.bashrc
+   73  source ~/.bashrc
+   74  android-studio
+   75  ls
+   76  cd Desktop
+   77  # Create new directory
+   78  mkdir ~/Desktop/kivy_android
+   79  cd ~/Desktop/kivy_android
+   80  # Copy your project files
+   81  cp -r ~/Desktop/project/kivy/* .
+   82  # Create new Python 3.10 virtual environment
+   83  python3.10 -m venv .venv-android
+   84  source .venv-android/bin/activate
+   85  # Install build requirements
+   86  pip install --upgrade pip setuptools wheel
+   87  pip install buildozer==1.5.0 cython==0.29.33
+   88  # Verify installations
+   89  python --version  # Should show Python 3.10.13
+   90  which buildozer   # Should show path in .venv-android/bin
+   91  buildozer --version
+   92  # Start the build
+   93  buildozer -v android debug 2>&1 | tee buildozer_build.log
+   94  ls
+   95  python --version
+   96  code .
+   97  # run buildozer in the official image; this mounts your project into the container and runs build
+   98  docker run --rm -v "$(pwd)":/home/user/hostcwd -w /home/user/hostcwd kivy/buildozer   buildozer android debug
+   99  sudo apt install docker-cli
+  100  buildozer android debug
+  101  pip install buildozer
+  102  source /home/zilly/Desktop/kivy_android/venv/bin/activate
+  103  source /home/zilly/Desktop/kivy_android/venv/bin/activate
+  104  source /home/zilly/Desktop/kivy_android/venv/bin/activate
+  105  source /home/zilly/Desktop/kivy_android/venv/bin/activate
+  106  which buildozer || buildozer --version
+  107  source venv\bin\activate
+  108  venv\bin\activate
+  109  pip install buildozer
+  110  python3 -m venv venv
+  111  source venv\bin\activate
+  112  cd venv
+  113  ls
+  114  cd ..
+  115  # run buildozer in the official image; this mounts your project into the container and runs build
+  116  docker run --rm -v "$(pwd)":/home/user/hostcwd -w /home/user/hostcwd kivy/buildozer   buildozer android debug
+  117  source /home/zilly/Desktop/kivy_android/venv/bin/activate
+  118  ls
+  119  cd Documents
+  120  ls
+  121  cd moneyApp
+  122  code .
+  123  cd ..
+  124  cd Dekstop
+  125  cd Desktop
+  126  ls
+  127  cd ..
+  128  cd Documents
+  129  ls
+  130  cd ..
+  131  ls
+  132  cd Desktop
+  133  ls
+  134  cd project
+  135  ls
+  136  cd kivy
+  137  code .
+  138  ls
+  139  cd kivypro
+  140  sudo apt install python3 python3-venv python3-pip -y
+  141  source venv/bin/activate
+  142  code .
+  143  gemini-cli
+  144  ls
+  145  cd kivy_project
+  146  code .
+  147  ls
+  148  source venv/bin/actvate
+  149  sudo apt update
+  150  sudo apt install -y python3-pip python3-setuptools git zip unzip openjdk-17-jdk      zlib1g-dev libncurses5-dev libstdc++6 libffi-dev libssl-dev      autoconf automake libtool pkg-config
+  151  apt search openjdk
+  152  java --version
+  153  ls
+  154  cd kivy_project
+  155  ls
+  156  git init
+  157  code .
+  158  git remote addorigub http://github.com/ziraki295-boop/kivy.git
+  159  git remote add origin http://github.com/ziraki295-boop/kivy.git
+  160  git add .git ignore
+  161  git add .gitignore
+  162  git add .git ignore
+  163  git add .gitignore
+  164  source /home/zilly/kivy_project/venv/bin/activate
+  165  source /home/zilly/kivy_project/venv/bin/activate
+  166  git remote add origin https"//github.com/ziraki295-boop/kivy.git
+  167  git add .gitignore
+  168  git commit -m "inisial branch code and git ignore"
+  169  git push
+  170  ls
+  171  cd vebview
+  172  ls
+  173  cd webview
+  174  ls
+  175  git init
+  176  git add .
+  177  git commit -m "komit pertama: webview"
+  178  git remote add origin https://github.com/ziraki296/webview.git
+  179  git branch -M main
+  180  git push -u origin main
+  181  git branch -M main
+  182  git push -u origin -m main
+  183  git push -u origin -M main
+  184  git push -u origin M main
+  185  git push -u origin  main
+  186  cd webview
+  187  .github/workflows/
+  188  .github/workflows/docker-build.yml
+  189  ls
+  190  code .
+  191  cd webview
+  192  code .
+  193  git add buildozer.spec
+  194  git commit -m "edit file builder.spec"
+  195  git push origin main
+  196  cp -r .git ../git-backup
+  197  git fsck --full
+  198  rm -f .git/objects/03/2246ff9259d1a25356fbb83fe7a0da625b4406
+  199  git gc --prune=now
+  200  git fsck --full
+  201  # 1. Hapus file object yang rusak
+  202  rm -f .git/objects/03/2246ff9259d1a25356fbb83fe7a0da625b4406
+  203  # 2. Bersihkan database git dari sisa referensi rusak
+  204  git gc --prune=now
+  205  # 3. Periksa lagi untuk memastikan tidak ada error baru
+  206  git fsck --full
+  207  cd ~
+  208  cp -r webview webview_backup
+  209  cd ~/webview
+  210  rm -rf .git
+  211  git init
+  212  git branch -M main
+  213  git remote add origin https://github.com/ziraki296-boop/webview.git
+  214  git add .
+  215  git commit -m "Reinitialize repo after Git corruption"
+  216  git push -u origin main --force
+  217  ls -1
+  218  rm -rf .git
+  219  git init
+  220  git branch -M main
+  221  git remote add origin https://github.com/ziraki296-boop/webview.git
+  222  git init
+  223  git branch -M main
+  224  git remote add origin https://github.com/ziraki296-boop/webview.git
+  225  git add .
+  226  git commit -m "Clean reinitialization after fixing corrupted Git"
+  227  git push -u origin main --force
+  228  mkdir -p .github/workflows
+  229  git add .github/workflows/build-android.yml
+  230  git commit -m "Add GitHub Action for APK build"
+  231  git push origin main
+  232  git add buildozer.spec
+  233  git push origin main
+  234  history
+  235  history > history_lig.txt
