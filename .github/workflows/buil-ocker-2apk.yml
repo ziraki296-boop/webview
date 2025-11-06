@@ -1,0 +1,59 @@
+name: Build Kivy Android APK (Matrix Docker CI)
+
+on:
+  workflow_dispatch:  # bisa dijalankan manual dari tab Actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        arch: [arm64-v8a, armeabi-v7a]   # dua arsitektur Android
+      fail-fast: false                   # kalau satu gagal, yang lain tetap lanjut
+
+    steps:
+    # 1️⃣ Checkout repository
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2️⃣ Restore cache untuk .buildozer
+    - name: Restore Buildozer cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          .buildozer
+          ~/.buildozer
+        key: buildozer-${{ runner.os }}-${{ matrix.arch }}-${{ hashFiles('buildozer.spec') }}
+        restore-keys: |
+          buildozer-${{ runner.os }}-${{ matrix.arch }}-
+
+    # 3️⃣ Build APK non-root dalam Docker
+    - name: Build APK (${{ matrix.arch }})
+      run: |
+        docker run --rm \
+          -v ${{ github.workspace }}:/app \
+          -w /app \
+          kivy/buildozer bash -c "
+          apt-get update -y &&
+          apt-get install -y git &&
+          useradd -m builder &&
+          chown -R builder /app &&
+          su builder -c '
+            sed -i \"s/^android.archs.*/android.archs = ${{ matrix.arch }}/\" buildozer.spec &&
+            buildozer -v android debug
+          '
+        "
+
+    # 4️⃣ Ganti nama hasil APK agar unik per arsitektur
+    - name: Rename APK
+      run: |
+        mkdir -p bin_out
+        mv bin/*.apk bin_out/transformapp-${{ matrix.arch }}.apk
+
+    # 5️⃣ Upload hasil APK ke artifacts
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-apk-${{ matrix.arch }}
+        path: bin_out/*.apk
