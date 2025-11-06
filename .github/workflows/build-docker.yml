@@ -1,28 +1,30 @@
-name: Build Kivy Android APK (Non-Interactive, Allow Root)
+name: Build Kivy Android APK (Docker CI)
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # bisa dijalankan manual dari tab Actions
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    # 1️⃣ Checkout repository
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Build APK using Buildozer Docker
-        run: |
-          docker run --rm -v ${{ github.workspace }}:/app -w /app \
-            -e BUILDOZER_ALLOW_ROOT=1 \
-            kivy/buildozer bash -c "
-              apt-get update -y &&
-              apt-get install -y git &&
-              yes | buildozer android debug
-            "
+    # 2️⃣ Build APK menggunakan image Buildozer resmi
+    - name: Build APK using Buildozer Docker
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/app -w /app \
+          kivy/buildozer bash -c "
+          apt-get update -y &&
+          apt-get install -y git && \
+          yes | buildozer -v android debug --ignore-root
+        "
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-apk
-          path: bin/*.apk
+    # 3️⃣ Upload hasil build (APK) ke artifacts
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-apk
+        path: bin/*.apk
